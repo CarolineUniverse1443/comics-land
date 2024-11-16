@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Funny Comics Land</title>
+</head>
+<body>
+    <div id="app">
+        <div class="wrap">
+            <header>
+            <div class="logo-wrap">
+                <img src="Media/images/logo.png" alt="">
+            </div>
+            <nav>
+                <div id="menu">
+                    <a href="" @click.prevent="currentPage = 'home'" >О нас</a>
+                    <a href="" @click.prevent="currentPage = 'catalog'" >Каталог</a>
+                    <a href="" @click.prevent="currentPage = 'contacts'" >Где нас найти?</a>
+                    <a href="" @click.prevent="currentPage = 'orders'" v-if="false">Мои заявки</a>
+                    <a href="" @click.prevent="currentPage = 'cart'">Корзина</a>
+                </div>
+
+                <div id="butt">
+                    <a href="" @click.prevent="currentPage = 'register'">Регистрация</a>
+                    <a href="" @click.prevent="currentPage = 'login'">Вход</a>
+                    <a href="" @click.prevent="currentPage = 'home'" v-if="false">Выход</a>
+                </div>
+            </nav>
+            </header>
+            <main>
+                <section v-if="currentPage === 'home'" id="home">
+                    <img src="Media/images/logo.png" id="logo">
+				    <p>Учитываем интересы каждого покупателя!</p>
+                    
+                    <div class="slider">
+                        <h2>Новинки компании</h2>
+                        <!-- :src="slide" -->
+                        <button @click="prev" class="prev"></button>
+                        <div class="slider-item" v-for="(slide, index) in slides" :key="index" v-show="index === slideVisible">
+                            <img :src="slide" alt="photo" class="photo">
+                        </div>
+                        <button @click="next" class="next"></button>
+                    </div>
+                </section>
+                <section v-if="currentPage === 'catalog'" id="catalog">
+                    <div class="good" v-for="good in slides" :key="good.id">
+                        <img :src="good" class="phone" @click="viewVisible = !viewVisible; showGood(good)">
+                        <!-- <p class="name"><strong>{{good.title}}</strong></p>
+                        <p class="price">{{good.price}}$</p> -->
+                        <button class="add" @click="addGood(good);totalCost">Добавить</button>
+                    </div>
+                </section>
+                <section v-if="currentPage === 'contacts'">
+
+                </section>
+                <section v-if="currentPage === 'register'">
+
+                </section>
+                <section v-if="currentPage === 'login'">
+
+                </section>
+                <section v-if="currentPage === 'orders'">
+
+                </section>
+                <section v-if="currentPage === 'cart'">
+                    <div id="list" v-if="cartVisible">
+                        <p v-if="cart.length === 0" id="none">Товаров в корзине нет</p>
+                        <div class="item" v-for="good in cart" :key="good.id">
+                            <span class="cartEl f">{{good.title}}</span>
+                            <button id="minus" @click="minusPr(good)">–</button>
+                            <span class="cartEl s">{{good.price}}$</span>
+                            <button id="plus" @click="good.count++">+</button>
+                            <span class="cartEl t">{{good.count}} шт.</span>
+                            <button id="del" @click="deleteGood(good.id)"></button>
+                        </div>
+                        <div v-if="cart.length > 0">
+                            <!-- <hr> -->
+                            <div class="line"></div>
+                            <p id="amount">Всего: {{totalCost}}$</p>
+                            <button id="clear" @click="clearCart">Очистить корзину</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer>
+                <p id="copy">&copy; Все права защищены. Funny Comics Land. 2018-2022</p>
+            </footer>
+        </div>
+        
+    </div>
+    <script src="js/vue.global.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/study.js"></script>
+</body>
+</html>
